@@ -7,21 +7,20 @@ export const headerData = {
       links: [
         {
           text: 'Geräte',
-          href: getPermalink('/devices/saas'),
+          href: getPermalink('/machines'),
         },
         {
           text: 'Das Team',
-          href: getPermalink('/homes/saas'),
+          href: getPermalink('/the-team'),
         },
         
       ],
     },
     {
       text: 'Kontakt',
-      href: getBlogPermalink(),
+      href: getPermalink('/contact'),
     },
   ],
-  actions: [{ text: 'Download', href: 'https://github.com/onwidget/astrowind', target: '_blank' }],
 };
 
 export const footerData = {
@@ -29,8 +28,8 @@ export const footerData = {
     {
       title: 'Das Lab',
       links: [
-        { text: 'Geräte', href: '#' },
-        { text: 'Das Team', href: '#' },
+        { text: 'Geräte', href: '/machines' },
+        { text: 'Das Team', href: '/the-team' },
         { text: 'Kontakt', href: 'contact' },
       ],
     },
