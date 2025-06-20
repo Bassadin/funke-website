@@ -1,6 +1,6 @@
 services:
-  funke-website:
-    build: .
-    container_name: funke-website
-    ports:
-      - 8080:8080
+    funke-website:
+        build: .
+        container_name: funke-website
+        ports:
+            - 8080:8080
