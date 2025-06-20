@@ -11,7 +11,7 @@ metadata:
     title:
         default: FunkeLab
         template: '%s — FunkeLab'
-    description: "\U0001F680 Makerspace der Funke."
+    description: "\U0001F680 Makerspace der Funke e.V. Karlsruhe."
     robots:
         index: true
         follow: true
