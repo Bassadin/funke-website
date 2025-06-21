@@ -37,5 +37,8 @@ export const footerData = {
         { text: 'Terms', href: getPermalink('/terms') },
         { text: 'Privacy Policy', href: getPermalink('/privacy') },
     ],
-    socialLinks: [{ ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' }],
+    socialLinks: [
+        { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/die.fffunke' },
+        { ariaLabel: 'Telegram', icon: 'tabler:brand-telegram', href: 'https://t.me/+IfTtCOFWW11kNGE0' },
+    ],
 };
