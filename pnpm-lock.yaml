@@ -39,8 +39,8 @@ importers:
         specifier: ^4.6.2
         version: 4.6.2
       unpic:
-        specifier: ^4.1.2
-        version: 4.1.2
+        specifier: ^4.2.2
+        version: 4.2.2
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.4
@@ -3280,8 +3280,8 @@ packages:
   unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
 
-  unpic@4.1.2:
-    resolution: {integrity: sha512-sau6i25EUxumNIL7e0kDpPWkVw3yxghLYcEwxPvm08263UfABDxtUJPT3H55z7W15cVXJB/PEhw4z6Oc+idWCA==}
+  unpic@4.2.2:
+    resolution: {integrity: sha512-z6T2ScMgRV2y2H8MwwhY5xHZWXhUx/YxtOCGJwfURSl7ypVy4HpLIMWoIZKnnxQa/RKzM0kg8hUh0paIrpLfvw==}
 
   unstorage@1.17.4:
     resolution: {integrity: sha512-fHK0yNg38tBiJKp/Vgsq4j0JEsCmgqH58HAn707S7zGkArbZsVr/CwINoi+nh3h98BRCwKvx1K3Xg9u3VV83sw==}
@@ -7502,7 +7502,7 @@ snapshots:
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
 
-  unpic@4.1.2: {}
+  unpic@4.2.2: {}
 
   unstorage@1.17.4:
     dependencies:
