@@ -5,7 +5,29 @@
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
+  - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    # Automerge configuration
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "automerge"
+    # Automatically rebase PRs when they become outdated
+    rebase-strategy: "auto"
+    # Ignore major version updates (only automerge minor/patch)
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # Group updates (optional - helps reduce PR count)
+    groups:
+      development-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "patch"
