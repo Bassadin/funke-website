@@ -9,6 +9,9 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    # Only update direct dependencies (pnpm does not support updating transitive dependencies)
+    allow:
+      - dependency-type: "direct"
     # Automerge configuration
     open-pull-requests-limit: 10
     labels:
