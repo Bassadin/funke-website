@@ -29,14 +29,11 @@ export const footerData = {
             links: [
                 { text: 'Geräte', href: '/machines' },
                 { text: 'Das Team', href: '/the-team' },
-                { text: 'Kontakt', href: 'contact' },
+                { text: 'Kontakt', href: '/contact' },
             ],
         },
     ],
-    secondaryLinks: [
-        { text: 'Terms', href: getPermalink('/terms') },
-        { text: 'Privacy Policy', href: getPermalink('/privacy') },
-    ],
+    secondaryLinks: [],
     socialLinks: [
         { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/die.fffunke' },
         { ariaLabel: 'Telegram', icon: 'tabler:brand-telegram', href: 'https://t.me/+IfTtCOFWW11kNGE0' },
