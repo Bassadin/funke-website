@@ -1,23 +1,23 @@
-import { getPermalink } from './utils/permalinks';
+import { getPermalink } from "./utils/permalinks";
 
 export const headerData = {
     links: [
         {
-            text: 'Das Lab',
+            text: "Das Lab",
             links: [
                 {
-                    text: 'Geräte',
-                    href: getPermalink('/machines'),
+                    text: "Geräte",
+                    href: getPermalink("/machines"),
                 },
                 {
-                    text: 'Das Team',
-                    href: getPermalink('/the-team'),
+                    text: "Das Team",
+                    href: getPermalink("/the-team"),
                 },
             ],
         },
         {
-            text: 'Kontakt',
-            href: getPermalink('/contact'),
+            text: "Kontakt",
+            href: getPermalink("/contact"),
         },
     ],
 };
@@ -25,17 +25,25 @@ export const headerData = {
 export const footerData = {
     links: [
         {
-            title: 'Das Lab',
+            title: "Das Lab",
             links: [
-                { text: 'Geräte', href: '/machines' },
-                { text: 'Das Team', href: '/the-team' },
-                { text: 'Kontakt', href: '/contact' },
+                { text: "Geräte", href: "/machines" },
+                { text: "Das Team", href: "/the-team" },
+                { text: "Kontakt", href: "/contact" },
             ],
         },
     ],
     secondaryLinks: [],
     socialLinks: [
-        { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/die.fffunke' },
-        { ariaLabel: 'Telegram', icon: 'tabler:brand-telegram', href: 'https://t.me/+IfTtCOFWW11kNGE0' },
+        {
+            ariaLabel: "Instagram",
+            icon: "tabler:brand-instagram",
+            href: "https://www.instagram.com/die.fffunke",
+        },
+        {
+            ariaLabel: "Telegram",
+            icon: "tabler:brand-telegram",
+            href: "https://t.me/+IfTtCOFWW11kNGE0",
+        },
     ],
 };

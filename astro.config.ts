@@ -1,19 +1,19 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
-import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
-import icon from 'astro-icon';
-import compress from 'astro-compress';
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import icon from "astro-icon";
+import compress from "astro-compress";
 
-import astrowind from './vendor/integration';
+import astrowind from "./vendor/integration";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-    output: 'static',
+    output: "static",
 
     integrations: [
         tailwind({
@@ -22,17 +22,17 @@ export default defineConfig({
         sitemap(),
         icon({
             include: {
-                tabler: ['*'],
-                'flat-color-icons': [
-                    'template',
-                    'gallery',
-                    'approval',
-                    'document',
-                    'advertising',
-                    'currency-exchange',
-                    'voice-presentation',
-                    'business-contact',
-                    'database',
+                tabler: ["*"],
+                "flat-color-icons": [
+                    "template",
+                    "gallery",
+                    "approval",
+                    "document",
+                    "advertising",
+                    "currency-exchange",
+                    "voice-presentation",
+                    "business-contact",
+                    "database",
                 ],
             },
         }),
@@ -40,7 +40,7 @@ export default defineConfig({
         compress({
             CSS: true,
             HTML: {
-                'html-minifier-terser': {
+                "html-minifier-terser": {
                     removeAttributeQuotes: false,
                 },
             },
@@ -51,18 +51,18 @@ export default defineConfig({
         }),
 
         astrowind({
-            config: './src/config.yaml',
+            config: "./src/config.yaml",
         }),
     ],
 
     image: {
-        domains: ['cdn.pixabay.com'],
+        domains: ["cdn.pixabay.com"],
     },
 
     vite: {
         resolve: {
             alias: {
-                '~': path.resolve(__dirname, './src'),
+                "~": path.resolve(__dirname, "./src"),
             },
         },
     },
