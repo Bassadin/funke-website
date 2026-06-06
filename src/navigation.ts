@@ -32,6 +32,16 @@ export const footerData = {
                 { text: 'Kontakt', href: 'contact' },
             ],
         },
+        {
+            title: 'Adresse',
+            links: [
+                {
+                    text: 'Stresemannstraße 28<br />76187 Karlsruhe',
+                    href: 'https://www.openstreetmap.org/search?query=Stresemannstra%C3%9Fe%2028%2C%2076187%20Karlsruhe',
+                    ariaLabel: 'Adresse auf OpenStreetMap öffnen',
+                },
+            ],
+        },
     ],
     secondaryLinks: [
         { text: 'Terms', href: getPermalink('/terms') },
