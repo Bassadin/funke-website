@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { Icon } from 'astro-icon/components';
 import { findImage } from '~/utils/images';
 import {
     getImagesOptimized,
@@ -7,6 +8,7 @@ import {
     unpicOptimizer,
     isUnpicCompatible,
     type ImageProps,
+    type ImagesOptimizer,
 } from '~/utils/images-optimization';
 
 type Props = ImageProps;
@@ -15,7 +17,13 @@ type ImageType = {
     attributes: HTMLAttributes<'img'>;
 };
 
-const props = Astro.props;
+const {
+    lightbox = false,
+    lightboxWidths = [768, 1280, 1920, 2560],
+    lightboxSizes = '90vw',
+    lightboxLabel,
+    ...props
+} = Astro.props;
 
 if (props.alt === undefined || props.alt === null) {
     throw new Error();
@@ -40,22 +48,150 @@ if (!props.decoding) {
 const _image = await findImage(props.src);
 
 let image: ImageType | undefined = undefined;
+let lightboxImage: ImageType | undefined = undefined;
 
-if (
-    typeof _image === 'string' &&
-    (_image.startsWith('http://') || _image.startsWith('https://')) &&
-    isUnpicCompatible(_image)
-) {
-    image = await getImagesOptimized(_image, props, unpicOptimizer);
-} else if (_image) {
-    image = await getImagesOptimized(_image, props, astroAssetsOptimizer);
+if (_image) {
+    const isRemoteImage =
+        typeof _image === 'string' &&
+        (_image.startsWith('http://') || _image.startsWith('https://')) &&
+        isUnpicCompatible(_image);
+    const optimizer: ImagesOptimizer = isRemoteImage ? unpicOptimizer : astroAssetsOptimizer;
+
+    image = await getImagesOptimized(_image, props, optimizer);
+
+    if (lightbox) {
+        const lightboxProps: ImageProps = {
+            ...props,
+            width: undefined,
+            height: undefined,
+            widths: lightboxWidths,
+            sizes: lightboxSizes,
+            layout: 'contained',
+            loading: 'eager',
+            class: 'max-h-[90vh] w-full rounded-lg bg-gray-500 object-contain shadow-2xl',
+        };
+
+        lightboxImage = await getImagesOptimized(_image, lightboxProps, optimizer);
+    }
 }
+
+const label = lightboxLabel || String(props.alt || 'Bild');
+const { class: imageClass, ...imageAttributes } = image?.attributes ?? {};
 ---
 
 {
     !image ? (
         <Fragment />
+    ) : lightbox && lightboxImage ? (
+        <div data-image-lightbox>
+            <button
+                type="button"
+                class="group block w-full cursor-zoom-in rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 dark:focus-visible:ring-offset-slate-950"
+                aria-label="Bild vergroessert anzeigen"
+                data-lightbox-open
+            >
+                <img
+                    src={image.src}
+                    crossorigin="anonymous"
+                    referrerpolicy="no-referrer"
+                    {...imageAttributes}
+                    class={`${imageClass ?? ''} transition duration-200 group-hover:brightness-95`}
+                />
+            </button>
+            <dialog
+                class="m-auto w-[min(94vw,1200px)] max-w-none rounded-lg bg-transparent p-0 opacity-100 backdrop:bg-slate-950/80 motion-safe:scale-[0.98] motion-safe:opacity-0 motion-safe:transition-[opacity,transform] motion-safe:duration-[180ms] motion-safe:ease-out motion-safe:backdrop:bg-slate-950/0 motion-safe:backdrop:transition-colors motion-safe:backdrop:duration-[180ms] motion-safe:backdrop:ease-out motion-safe:data-[lightbox-state=closing]:scale-[0.98] motion-safe:data-[lightbox-state=closing]:opacity-0 motion-safe:data-[lightbox-state=closing]:backdrop:bg-slate-950/0 motion-safe:data-[lightbox-state=open]:scale-100 motion-safe:data-[lightbox-state=open]:opacity-100 motion-safe:data-[lightbox-state=open]:backdrop:bg-slate-950/80"
+                aria-label={label}
+                data-lightbox-dialog
+            >
+                <div class="relative">
+                    <button
+                        type="button"
+                        class="absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg transition hover:bg-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                        aria-label="Lightbox schliessen"
+                        data-lightbox-close
+                    >
+                        <Icon name="tabler:x" class="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <img
+                        src={lightboxImage.src}
+                        crossorigin="anonymous"
+                        referrerpolicy="no-referrer"
+                        {...lightboxImage.attributes}
+                    />
+                </div>
+            </dialog>
+        </div>
     ) : (
         <img src={image.src} crossorigin="anonymous" referrerpolicy="no-referrer" {...image.attributes} />
     )
 }
+
+<script>
+    const bindImageLightboxes = () => {
+        document.querySelectorAll<HTMLElement>('[data-image-lightbox]').forEach((root) => {
+            if (root.dataset.lightboxBound === 'true') return;
+
+            const openButton = root.querySelector<HTMLButtonElement>('[data-lightbox-open]');
+            const closeButton = root.querySelector<HTMLButtonElement>('[data-lightbox-close]');
+            const dialog = root.querySelector<HTMLDialogElement>('[data-lightbox-dialog]');
+
+            if (!openButton || !closeButton || !dialog) return;
+
+            root.dataset.lightboxBound = 'true';
+            let closeTimer: number | undefined;
+            const motionQuery = window.matchMedia('(prefers-reduced-motion: no-preference)');
+
+            const closeLightbox = () => {
+                if (!dialog.open || dialog.dataset.lightboxState === 'closing') return;
+
+                if (!motionQuery.matches) {
+                    dialog.close();
+                    dialog.dataset.lightboxState = 'closed';
+                    return;
+                }
+
+                dialog.dataset.lightboxState = 'closing';
+                closeTimer = window.setTimeout(() => {
+                    dialog.close();
+                    dialog.dataset.lightboxState = 'closed';
+                }, 180);
+            };
+
+            openButton.addEventListener('click', () => {
+                window.clearTimeout(closeTimer);
+                if (typeof dialog.showModal === 'function') {
+                    dialog.showModal();
+                } else {
+                    dialog.setAttribute('open', '');
+                }
+
+                if (!motionQuery.matches) {
+                    dialog.dataset.lightboxState = 'open';
+                    return;
+                }
+
+                window.requestAnimationFrame(() => {
+                    dialog.dataset.lightboxState = 'open';
+                });
+            });
+
+            closeButton.addEventListener('click', () => {
+                closeLightbox();
+            });
+
+            dialog.addEventListener('click', (event) => {
+                if (event.target === dialog) {
+                    closeLightbox();
+                }
+            });
+
+            dialog.addEventListener('cancel', (event) => {
+                event.preventDefault();
+                closeLightbox();
+            });
+        });
+    };
+
+    bindImageLightboxes();
+    document.addEventListener('astro:page-load', bindImageLightboxes);
+</script>

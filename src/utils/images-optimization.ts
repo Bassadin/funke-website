@@ -24,6 +24,10 @@ export interface ImageProps extends Omit<HTMLAttributes<'img'>, 'src'> {
     objectPosition?: string;
 
     format?: string;
+    lightbox?: boolean;
+    lightboxWidths?: number[] | null;
+    lightboxSizes?: string | null;
+    lightboxLabel?: string | null;
 }
 
 export type ImagesOptimizer = (
