@@ -17,12 +17,30 @@ const metadata = {
         title="Finde uns hier..."
         items={[
             {
+                title: 'Adresse',
+                description: `Stresemannstraße 28, 76187 Karlsruhe`,
+                icon: 'tabler:map-pin',
+                callToAction: {
+                    text: 'Karte öffnen',
+                    href: 'https://www.openstreetmap.org/search?query=Stresemannstra%C3%9Fe%2028%2C%2076187%20Karlsruhe',
+                },
+            },
+            {
                 title: 'Instagram',
                 description: `Instagram-Profil des Funke Vereins`,
                 icon: 'tabler:brand-instagram',
                 callToAction: {
-                    text: 'Jetzt beitreten',
-                    href: 'https://t.me/funkelab',
+                    text: 'Profil öffnen',
+                    href: 'https://www.instagram.com/die.fffunke',
+                },
+            },
+            {
+                title: 'Mastodon',
+                description: `Mastodon-Profil des FunkeLab`,
+                icon: 'tabler:brand-mastodon',
+                callToAction: {
+                    text: 'Profil öffnen',
+                    href: 'https://mastodon.social/@FunkeLab',
                 },
             },
             {
