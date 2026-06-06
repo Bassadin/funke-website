@@ -23,6 +23,8 @@ const {
     classes = {},
     bg = await Astro.slots.render('bg'),
 } = Astro.props;
+
+const hasImage = Boolean(image);
 ---
 
 <WidgetWrapper
@@ -42,8 +44,10 @@ const {
         }}
     />
     <div class="mx-auto max-w-7xl p-4 md:px-8">
-        <div class={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} md:gap-16`}>
-            <div class="md:basis-1/2 self-center">
+        <div
+            class={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} ${hasImage ? 'md:gap-16' : 'md:justify-center'}`}
+        >
+            <div class={`${hasImage ? 'md:basis-1/2' : 'mx-auto max-w-3xl text-center'} self-center`}>
                 {content && <div class="mb-12 text-lg dark:text-slate-400" set:html={content} />}
 
                 {
@@ -68,9 +72,9 @@ const {
                     }}
                 />
             </div>
-            <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
-                {
-                    image && (
+            {
+                hasImage && (
+                    <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
                         <div class="relative m-auto max-w-4xl">
                             {typeof image === 'string' ? (
                                 <Fragment set:html={image} />
@@ -82,13 +86,13 @@ const {
                                     widths={[400, 768]}
                                     sizes="(max-width: 768px) 100vw, 432px"
                                     layout="responsive"
-                                    {...image}
+                                    {...(image as Record<string, unknown>)}
                                 />
                             )}
                         </div>
-                    )
-                }
-            </div>
+                    </div>
+                )
+            }
         </div>
     </div>
 </WidgetWrapper>
