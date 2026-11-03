@@ -19,6 +19,10 @@ export const headerData = {
             text: 'Kontakt',
             href: getPermalink('/contact'),
         },
+        {
+            text: 'Vorbeikommen',
+            href: getPermalink('/contact'),
+        },
     ],
 };
 
@@ -44,8 +48,8 @@ export const footerData = {
         },
     ],
     secondaryLinks: [
-        { text: 'Terms', href: getPermalink('/terms') },
-        { text: 'Privacy Policy', href: getPermalink('/privacy') },
+        { text: 'Impressum', href: getPermalink('/impressum') },
+        { text: 'Datenschutz', href: getPermalink('/datenschutz') },
     ],
     socialLinks: [
         { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/die.fffunke' },

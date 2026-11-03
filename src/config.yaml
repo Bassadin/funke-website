@@ -1,6 +1,6 @@
 site:
     name: FunkeLab
-    site: 'https://lab.die-funke.de'
+    site: 'https://www.lab.diefunke.de'
     base: '/'
     trailingSlash: false
 
@@ -11,14 +11,14 @@ metadata:
     title:
         default: FunkeLab
         template: '%s — FunkeLab'
-    description: "\U0001F680 Makerspace der Funke e.V. Karlsruhe."
+    description: 'Offener Makerspace in der Karlsruher Nordweststadt: Geräte, Werkzeuge und Platz für eigene Projekte. Betrieben von der Funke e.V.'
     robots:
         index: true
         follow: true
     openGraph:
         site_name: FunkeLab
         images:
-            - url: '~/assets/images/default.png'
+            - url: '~/assets/images/werkstatt_eingang.jpg'
               width: 1200
               height: 628
         type: website
