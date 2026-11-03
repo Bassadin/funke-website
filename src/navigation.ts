@@ -47,9 +47,7 @@ export const footerData = {
             ],
         },
     ],
-    secondaryLinks: [
-        { text: 'Datenschutz', href: getPermalink('/datenschutz') },
-    ],
+    secondaryLinks: [{ text: 'Datenschutz', href: getPermalink('/datenschutz') }],
     socialLinks: [
         { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/die.fffunke' },
         { ariaLabel: 'Mastodon', icon: 'tabler:brand-mastodon', href: 'https://mastodon.social/@FunkeLab' },
